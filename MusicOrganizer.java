@@ -95,9 +95,13 @@ public class MusicOrganizer
      * Devuelve si o no a si se estan reproduciendo tracks.
      * @return The number of tracks in the collection.
      */
-    public boolean isPlaying()
+    public void isPlaying()
     {
-        return isPlaying;
+        if(isPlaying == true){
+           System.out.println("Se esta reproduciendo"); 
+        }else{
+           System.out.println("No se esta reproduciendo");
+        }
     }
     
     /**
