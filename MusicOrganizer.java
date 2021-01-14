@@ -137,7 +137,9 @@ public class MusicOrganizer
      */
     public void cambioAnioTrack(int trackSeleccionado, int anioNuevo)
     {
-        tracks.get(trackSeleccionado).modificarAnioActual(anioNuevo);
+        if(trackSeleccionado > 0 && trackSeleccionado < tracks.size()){
+            tracks.get(trackSeleccionado).modificarAnioActual(anioNuevo);
+        }
     }
     
     /**
