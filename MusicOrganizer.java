@@ -15,6 +15,8 @@ public class MusicOrganizer
     private MusicPlayer player;
     // A reader that can read music files and load them as tracks.
     private TrackReader reader;
+    // Boleano para saber si se estan reproduciendo canciones
+    private boolean isPlaying;
 
     /**
      * Create a MusicOrganizer
@@ -24,6 +26,7 @@ public class MusicOrganizer
         tracks = new ArrayList<Track>();
         player = new MusicPlayer();
         reader = new TrackReader();
+        isPlaying = false;
         readLibrary("audio");
         System.out.println("Music library loaded. " + getNumberOfTracks() + " tracks.");
         System.out.println();
@@ -66,11 +69,16 @@ public class MusicOrganizer
      */
     public void playTrack(int index)
     {
-        if(indexValid(index)) {
-            Track track = tracks.get(index);
-            player.startPlaying(track.getFilename());
-            track.incrementPlayCount();
-            System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+        if(isPlaying == false){
+            if(indexValid(index)) {
+                Track track = tracks.get(index);
+                player.startPlaying(track.getFilename());
+                track.incrementPlayCount();
+                isPlaying = true;
+                System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+            }
+        }else{
+            System.out.println("Error, reproduccion en curso");
         }
     }
     
@@ -81,6 +89,15 @@ public class MusicOrganizer
     public int getNumberOfTracks()
     {
         return tracks.size();
+    }
+    
+    /**
+     * Devuelve si o no a si se estan reproduciendo tracks.
+     * @return The number of tracks in the collection.
+     */
+    public boolean isPlaying()
+    {
+        return isPlaying;
     }
     
     /**
@@ -137,7 +154,7 @@ public class MusicOrganizer
      */
     public void cambioAnioTrack(int trackSeleccionado, int anioNuevo)
     {
-        if(trackSeleccionado > 0 && trackSeleccionado < tracks.size()){
+        if(trackSeleccionado >= 0 && trackSeleccionado < tracks.size()){
             tracks.get(trackSeleccionado).modificarAnioActual(anioNuevo);
         }
     }
@@ -147,10 +164,15 @@ public class MusicOrganizer
      */
     public void playFirst()
     {
-        if(tracks.size() > 0) {
-            Track track = tracks.get(0);
-            track.incrementPlayCount();
-            player.startPlaying(tracks.get(0).getFilename());
+        if(isPlaying == false){
+            if(tracks.size() > 0) {
+                Track track = tracks.get(0);
+                track.incrementPlayCount();
+                player.startPlaying(tracks.get(0).getFilename());
+                isPlaying = true;
+            }
+        }else{
+            System.out.println("Error, reproduccion en curso");
         }
     }
     
@@ -160,6 +182,7 @@ public class MusicOrganizer
     public void stopPlaying()
     {
         player.stop();
+        isPlaying = false;
     }
 
     /**
