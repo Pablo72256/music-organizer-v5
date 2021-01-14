@@ -132,6 +132,15 @@ public class MusicOrganizer
     }
     
     /**
+     * Cambia el año de un determinado track
+     * 
+     */
+    public void cambioAnioTrack(int trackSeleccionado, int anioNuevo)
+    {
+        tracks.get(trackSeleccionado).modificarAnioActual(anioNuevo);
+    }
+    
+    /**
      * Play the first track in the collection, if there is one.
      */
     public void playFirst()

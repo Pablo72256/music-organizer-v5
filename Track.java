@@ -15,6 +15,8 @@ public class Track
     private String filename;
     //Contar las veces reproducidas
     private int playCount;
+    //Año actual
+    private int anioActual;
     
     /**
      * Constructor for objects of class Track.
@@ -26,6 +28,7 @@ public class Track
     {
         setDetails(artist, title, filename);
         playCount = 0;
+        anioActual = 2021;
     }
     
     /**
@@ -37,6 +40,7 @@ public class Track
     public Track(String filename)
     {
         setDetails("unknown", "unknown", filename);
+        anioActual = 2021;
     }
     
     /**
@@ -46,6 +50,23 @@ public class Track
     public String getArtist()
     {
         return artist;
+    }
+    
+    /**
+     * Devuelve el año
+     * 
+     */
+    public int getAnioActual()
+    {
+        return anioActual;
+    }
+    
+    /**
+     * Cambia el año actual
+     */
+    public void modificarAnioActual(int anioNuevo)
+    {
+        anioActual = anioNuevo;
     }
     
     /**
@@ -88,7 +109,7 @@ public class Track
      */
     public String getDetails()
     {
-        return artist + ": " + title + "  (file: " + filename + ")" + playCount;
+        return artist + ": " + title + "  (file: " + filename + ")" + playCount + anioActual;
     }
     
     /**
