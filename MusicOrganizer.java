@@ -77,7 +77,7 @@ public class MusicOrganizer
         while (it.hasNext()){
             Track trackActual = it.next();
             String artist = trackActual.getArtist();
-            if (artist.equals(artistaEliminar)){
+            if(artist.contains(artistaEliminar)) {
                 it.remove();
             }
         }
@@ -88,7 +88,7 @@ public class MusicOrganizer
         while (it.hasNext()){
             Track trackActual = it.next();
             String artist = trackActual.getArtist();
-            if (artist.equals(tituloEliminar)){
+            if(artist.contains(tituloEliminar)) {
                 it.remove();
             }
         }
