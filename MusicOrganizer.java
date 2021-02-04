@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 /**
  * A class to hold details of audio tracks.
@@ -22,13 +23,13 @@ public class MusicOrganizer
     /**
      * Create a MusicOrganizer
      */
-    public MusicOrganizer()
+    public MusicOrganizer(String carpeta)
     {
         tracks = new ArrayList<Track>();
         player = new MusicPlayer();
         reader = new TrackReader();
         isPlaying = false;
-        readLibrary("audio");
+        readLibrary(carpeta);
         System.out.println("Music library loaded. " + getNumberOfTracks() + " tracks.");
         System.out.println();
     }
@@ -110,6 +111,48 @@ public class MusicOrganizer
             }
         }else{
             System.out.println("Error, reproduccion en curso");
+        }
+    }
+    
+    /**
+     * Play a random track in the collection.
+     * @param index The index of the track to be played.
+     */
+    public void playRandom()
+    {
+        Random aleatorio = new Random();
+        int numAleatorio = aleatorio.nextInt(tracks.size());
+        if(isPlaying == false){
+            if(indexValid(numAleatorio)) {
+                Track track = tracks.get(numAleatorio);
+                player.startPlaying(track.getFilename());
+                track.incrementPlayCount();
+                isPlaying = true;
+                System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+            }
+        }else{
+            System.out.println("Error, reproduccion en curso");
+        }
+    }
+    
+    /**
+     * Play a Shuffle track in the collection.
+     * @param index The index of the track to be played.
+     */
+    public void playShuffle()
+    {
+        ArrayList<Track> copiaTrack = new ArrayList(); 
+        copiaTrack = (ArrayList)tracks.clone();
+        Random aleatorio = new Random();
+        while (copiaTrack.size() > 0){
+            int numAleatorio = aleatorio.nextInt(copiaTrack.size());
+            if(indexValid(numAleatorio)) {
+                Track track = copiaTrack.get(numAleatorio);
+                player.playSample(track.getFilename());
+                track.incrementPlayCount();
+                System.out.println("Now playing: " + track.getArtist() + " - " + track.getTitle());
+                copiaTrack.remove(numAleatorio);
+            }
         }
     }
     
